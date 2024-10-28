@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition, TransitionChild } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import LoadingDots from 'components/loading-dots';
 import Price from 'components/price';
@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
+import { Button } from '../ui/button';
 import { createCartAndSetCookie, redirectToCheckout } from './actions';
 import { useCart } from './cart-context';
 import CloseCart from './close-cart';
@@ -49,12 +50,12 @@ export default function CartModal() {
 
   return (
     <>
-      <button aria-label="Open cart" onClick={openCart}>
+      <Button variant="outline" size="icon" className="relative flex h-11 w-11 items-center justify-center " aria-label="Open cart" onClick={openCart}>
         <OpenCart quantity={cart?.totalQuantity} />
-      </button>
+      </Button>
       <Transition show={isOpen}>
         <Dialog onClose={closeCart} className="relative z-50">
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
             enterFrom="opacity-0 backdrop-blur-none"
@@ -64,8 +65,8 @@ export default function CartModal() {
             leaveTo="opacity-0 backdrop-blur-none"
           >
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          </Transition.Child>
-          <Transition.Child
+          </TransitionChild>
+          <TransitionChild
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
             enterFrom="translate-x-full"
@@ -202,7 +203,7 @@ export default function CartModal() {
                 </div>
               )}
             </Dialog.Panel>
-          </Transition.Child>
+          </TransitionChild>
         </Dialog>
       </Transition>
     </>
